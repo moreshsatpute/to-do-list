@@ -130,11 +130,11 @@ const TaskList = () => {
         />
       )}
 
-      <table className="table table-hover mt-3">
+      <table className="table table-hover " 
+     style={{ backgroundColor: "#ffffff"}} >
         <thead className="table-light">
           <tr>
             <th>
-              {" "}
               <input type="checkbox" />
             </th>
             <th>Assigned To</th>
@@ -146,20 +146,15 @@ const TaskList = () => {
           </tr>
         </thead>
         <tbody
-          style={{
-            backgroundColor: "#f8f9fa",
-            height: "200px",
-            overflow: "hidden",
-          }}
+          
+          style={{ height: "200px", overflowY: "auto" }}
         >
           {currentTasks.map((task) => (
             <tr key={task.id} style={{ height: "50px" }}>
-              {" "}
               {/* Each row has a height of 50px */}
               <td>
                 <input type="checkbox" />
-              </td>{" "}
-              {/* Checkbox for task selection */}
+              </td>
               <td>{task.assignedTo}</td>
               <td>{task.status}</td>
               <td>{task.dueDate}</td>

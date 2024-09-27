@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const TaskForm = ({ onClose, addTask, editTask, taskToEdit }) => {
+  // Initial task data, using taskToEdit if available (for edit mode)
   const [taskData, setTaskData] = useState(taskToEdit || {
     assignedTo: '',
     status: '',
@@ -8,8 +9,6 @@ const TaskForm = ({ onClose, addTask, editTask, taskToEdit }) => {
     priority: '',
     comments: ''
   });
-  
-  const [showOptions, setShowOptions] = useState(false); // Manage edit/delete options visibility
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,14 +18,12 @@ const TaskForm = ({ onClose, addTask, editTask, taskToEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (taskToEdit) {
-      editTask(taskData); // Call the editTask function if editing
+      editTask(taskData); // Call editTask if editing an existing task
     } else {
-      addTask(taskData); // Call the addTask function if creating new task
+      addTask(taskData); // Call addTask if creating a new task
     }
     onClose(); // Close the form after submission
   };
-
-
 
   return (
     <div className="modal fade show d-block" tabIndex="-1" style={{ display: 'block' }}>
@@ -63,7 +60,7 @@ const TaskForm = ({ onClose, addTask, editTask, taskToEdit }) => {
                   >
                     <option value="">Select Status</option>
                     <option value="Complete">Complete</option>
-                    <option value="Progress">Progress</option>
+                    <option value="Progress">In Progress</option>
                     <option value="Not Started">Not Started</option>
                   </select>
                 </div>
@@ -108,36 +105,12 @@ const TaskForm = ({ onClose, addTask, editTask, taskToEdit }) => {
                   onChange={handleChange}
                   rows="3"
                 />
-            
-                {showOptions && (
-                  <div className="mt-2">
-                    <button 
-                      type="button" 
-                      className="btn btn-secondary me-2" 
-                      onClick={() => {
-                        setShowOptions(false);
-                        setTaskData(taskToEdit);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button 
-                      type="button" 
-                      className="btn btn-danger" 
-                      onClick={() => setShowDeleteConfirmation(true)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                )}
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={onClose}>Cancel</button>
                 <button type="submit" className="btn btn-primary">Save</button>
               </div>
             </form>
-
-          
           </div>
         </div>
       </div>
